@@ -207,12 +207,6 @@ def write_to_postgres_warehouse(df, table_name: str):
 
     jdbc_url = f"jdbc:postgresql://{pg_host}:{pg_port}/{pg_db}"
 
-    properties = {
-        "user": pg_user,
-        "password": pg_pass,
-        "driver": "org.postgresql.Driver",
-    }
-
     try:
         (
             df.write.format("jdbc")

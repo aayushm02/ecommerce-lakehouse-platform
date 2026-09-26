@@ -4,18 +4,24 @@ Tests DataFrame deduplication, schema validation, and enrichment logic.
 Automatically skips if pyspark is not installed in the current environment.
 """
 
+from __future__ import annotations
+
 import pytest
 
-pyspark = pytest.importorskip("pyspark")
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, when
-from pyspark.sql.types import (
-    DoubleType,
-    IntegerType,
-    StringType,
-    StructField,
-    StructType,
-)
+try:
+    from pyspark.sql import SparkSession
+    from pyspark.sql.functions import col, when
+    from pyspark.sql.types import (
+        DoubleType,
+        StringType,
+        StructField,
+        StructType,
+    )
+    HAS_PYSPARK = True
+except ImportError:
+    HAS_PYSPARK = False
+
+pytestmark = pytest.mark.skipif(not HAS_PYSPARK, reason="PySpark not installed")
 
 
 @pytest.fixture(scope="session")

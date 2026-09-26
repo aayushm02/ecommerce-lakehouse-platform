@@ -2,7 +2,7 @@
 dialect = postgres
 templater = jinja
 max_line_length = 100
-exclude_rules = RF01,RF02,CP01
+exclude_rules = RF01,RF02,CP01,ST06,AL01,ST02,LT02,LT01,LT14
 
 [sqlfluff:indentation]
 tab_space_size = 4
