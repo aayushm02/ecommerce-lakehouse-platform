@@ -11,9 +11,8 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 
-from airflow.operators.bash import BashOperator
-
 from airflow import DAG
+from airflow.operators.bash import BashOperator
 
 default_args = {
     "owner": "data_engineering",
