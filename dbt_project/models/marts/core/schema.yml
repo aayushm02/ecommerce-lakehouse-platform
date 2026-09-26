@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension implementing SCD Type 2 (history tracking for tier/city changes)."
+    columns:
+      - name: customer_sk
+        description: "Surrogate key for the customer record version"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Natural business key"
+        tests:
+          - not_null
+      - name: is_current
+        description: "Flag indicating the current active record version"
+        tests:
+          - not_null
+
+  - name: dim_products
+    description: "Product dimension table."
+    columns:
+      - name: product_id
+        description: "Natural key for product"
+        tests:
+          - unique
+          - not_null
+      - name: product_category
+        tests:
+          - not_null
+
+  - name: fact_orders
+    description: "Sales transactions fact table at the grain of one row per order."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+      - name: total_amount
+        tests:
+          - not_null

@@ -1,0 +1,29 @@
+name: 'ecommerce_lakehouse'
+version: '1.0.0'
+config-version: 2
+
+profile: 'ecommerce_lakehouse'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  ecommerce_lakehouse:
+    staging:
+      +materialized: view
+      +schema: dbt_staging
+    marts:
+      core:
+        +materialized: table
+        +schema: analytics
+      analytics:
+        +materialized: table
+        +schema: analytics

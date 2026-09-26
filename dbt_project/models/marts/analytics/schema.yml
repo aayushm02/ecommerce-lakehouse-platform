@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: fct_daily_metrics
+    description: "Daily business metrics mart calculating rolling GMV, cumulative revenue, and category performance."
+    columns:
+      - name: order_date
+        description: "Transaction aggregation date"
+        tests:
+          - unique
+          - not_null
+      - name: daily_gmv
+        tests:
+          - not_null
+      - name: rolling_7d_gmv
+        tests:
+          - not_null

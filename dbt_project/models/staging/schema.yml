@@ -1,0 +1,52 @@
+version: 2
+
+sources:
+  - name: raw_stage
+    schema: raw_stage
+    tables:
+      - name: stg_raw_orders
+      - name: stg_raw_customers
+      - name: stg_raw_clickstream
+
+models:
+  - name: stg_orders
+    description: "Cleansed and typed transactional orders from the raw staging layer."
+    columns:
+      - name: order_id
+        description: "Primary key for the order"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key referencing customers"
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Total order monetary value"
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['COMPLETED', 'PENDING', 'CANCELLED', 'REFUNDED']
+
+  - name: stg_customers
+    description: "Standardized customer records with clean strings and timestamps."
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+      - name: email
+        tests:
+          - not_null
+
+  - name: stg_clickstream
+    description: "Standardized web interaction events."
+    columns:
+      - name: event_id
+        tests:
+          - unique
+          - not_null
+      - name: session_id
+        tests:
+          - not_null
